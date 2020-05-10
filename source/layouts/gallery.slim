@@ -1,0 +1,9 @@
+doctype html
+html.no-js lang="en-US"
+  head = partial 'partials/html_header'
+  body class="layout-gallery #{page_classes}"
+    header = partial 'partials/site_header'
+    main
+      = partial 'partials/gallery', locals: { gallery_slug: current_page.data.gallery }
+      = yield
+    footer = partial 'partials/site_footer'

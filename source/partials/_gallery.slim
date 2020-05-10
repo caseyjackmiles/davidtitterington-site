@@ -1,0 +1,4 @@
+- gallery = data.galleries.fetch(gallery_slug)
+.gallery class=[gallery_slug]
+  - gallery.paintings.each do |painting|
+    = partial 'partials/painting', locals: { painting_slug: painting }

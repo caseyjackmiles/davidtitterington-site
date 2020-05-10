@@ -1,0 +1,7 @@
+doctype html
+html.no-js lang="en-US"
+  head = partial 'partials/html_header'
+  body class="layout-default #{page_classes}"
+    header = partial 'partials/site_header'
+    main   = yield
+    footer = partial 'partials/site_footer'
