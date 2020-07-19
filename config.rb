@@ -6,7 +6,8 @@ activate :autoprefixer do |prefix|
 end
 
 activate :directory_indexes
-activate :middleman_simple_thumbnailer
+activate :middleman_simple_thumbnailer, use_specs: true
+activate :minify_html
 
 # Layouts
 # https://middlemanapp.com/basics/layouts/

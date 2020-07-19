@@ -1,0 +1,33 @@
+<% painting = data.paintings.fetch(painting_slug) %>
+<div class="painting">
+  <img
+    src="<%= image_path painting.image, resize_to: '176x176' %>"
+    alt="<%= painting.title %>"
+    title="<% painting.title %>"
+  />
+  <template>
+    <figure class="painting">
+      <img
+        alt="<%= painting.title %>"
+        title="<%= painting.title %>"
+        srcset="<%= image_path painting.image, resize_to: '176x176' %> 176w,
+          <%= image_path painting.image, resize_to: '352x352' %> 352w,
+          <%= image_path painting.image, resize_to: '880x880' %> 880w,
+          <%= image_path painting.image, resize_to: '1600x1600' %> 1408w"
+        sizes="(max-width: 500px) 75vw,
+          (max-width: 1000px) 75vw,
+          (max-width: 1500px) 75vw,
+          1600px"
+        src="<%= image_path painting.image, resize_to: '176x176' %>"
+      />
+      <figcaption>
+        <p>
+          <% %w[title date dimensions medium].each do |key| %>
+            <span><%= painting[key] %></span>
+          <% end %>
+          <span><%= painting.sold ? 'Sold' : 'Available' %></span>
+        </p>
+      </figcaption>
+    </figure>
+  </template>
+</div>

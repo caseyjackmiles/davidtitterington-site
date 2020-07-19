@@ -6,4 +6,5 @@ html.no-js lang="en-US"
     main
       = partial 'partials/gallery', locals: { gallery_slug: current_page.data.gallery }
       = yield
+      #lightbox.hidden
     footer = partial 'partials/site_footer'

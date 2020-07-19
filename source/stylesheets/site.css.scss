@@ -107,3 +107,35 @@ main {
 }
 
 a:hover { color: $accent-color; }
+
+.no-overflow { overflow: hidden; }
+
+#lightbox {
+  background-color: transparentize($primary-color, .2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+
+  display: grid;
+  place-items: center;
+
+  &.hidden { display: none; }
+
+  figure {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    justify-items: center;
+    background-color: $primary-bg-color;
+
+    img { margin: 0.5rem; max-height: 75vh; }
+    p { margin: 0 auto 0.5rem }
+    span:first-of-type { font-weight: bold; }
+    span:not(:last-of-type):after {
+      font-weight: normal;
+      content: '  |  ';
+      color: $secondary-color;
+    }
+  }
+}

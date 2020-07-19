@@ -1,0 +1,9 @@
+---
+- path: "*.jpg"
+  resize_to: 176x176
+- path: "*.jpg"
+  resize_to: 352x352
+- path: "*.jpg"
+  resize_to: 880x880
+- path: "*.jpg"
+  resize_to: 1600x1600
