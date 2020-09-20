@@ -22,8 +22,8 @@
       />
       <figcaption>
         <p>
-          <% %w[title date dimensions medium].each do |key| %>
-            <span><%= painting[key] %></span>
+          <% painting.values_at(*%w[title date dimensions medium]).compact.each do |key| %>
+            <span><%= key %></span>
           <% end %>
           <span><%= painting.sold ? 'Sold' : 'Available' %></span>
         </p>

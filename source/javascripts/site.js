@@ -25,31 +25,42 @@ const activateLightbox = function (e) {
 
   lightbox.classList.remove('hidden');
   document.body.classList.add('no-overflow');
-
-  addLightboxCloseListeners();
+  setTimeout(() => {
+    addLightboxCloseListeners();
+  }, 500);
 }
 
 const addLightboxCloseListeners = function () {
   // TODO: Add event listener to a 'close' button on lightbox
-  // TODO: Add click listener to lightbox to dismiss
-  document.addEventListener('keydown', handleKeypress);
+  document.addEventListener('click', detectClickOutsideFigure);
+  document.addEventListener('keydown', handleLightboxEscapeKeypress);
+}
+
+const detectClickOutsideFigure = function (e) {
+  const figure = document.getElementById('lightbox').querySelector('figure');
+  const wasOutside = !figure.contains(e.target);
+  if (wasOutside) { deactivateLightbox(); }
 }
 
 const removeLightboxCloseListeners = function () {
-  document.removeEventListener('keydown', handleKeypress);
+  document.removeEventListener('keydown', handleLightboxEscapeKeypress);
+  document.removeEventListener('click', detectClickOutsideFigure);
 }
 
-const handleKeypress = function (e) {
+const handleLightboxEscapeKeypress = function (e) {
   if (e.code !== 'Escape') return;
   deactivateLightbox();
-  document.removeEventListener('keydown', handleKeypress);
+  document.removeEventListener('keydown', handleLightboxEscapeKeypress);
 }
 
 const deactivateLightbox = function () {
   const lightbox = document.getElementById('lightbox');
   document.body.classList.remove('no-overflow');
   lightbox.classList.add('hidden');
-  setTimeout(() => { removeNodeContents(lightbox) }, 500);
+  setTimeout(() => {
+    removeNodeContents(lightbox);
+    removeLightboxCloseListeners();
+  }, 500);
 }
 
 const removeNodeContents = function (node) {
