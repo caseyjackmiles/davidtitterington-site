@@ -9,6 +9,10 @@ $primary-font-weight-light: 300;
 $primary-font-weight-normal: 400;
 $primary-font-weight-bold: 600;
 
+$breakpoint-small: 624px;
+$breakpoint-medium: 896px;
+$breakpoint-large: 1120px;
+
 h1, h2, h3, h4, h5, h6, p, ul, ol { margin: 0; padding: 0; }
 
 body {
@@ -41,16 +45,29 @@ body > header {
   }
 
   & > h1 + span {
-    display: inline-block;
-    font-size: 2.5rem;
-    font-weight: $primary-font-weight-light;
-    color: $secondary-color;
-    margin-left: .5rem;
+    display: none;
+
+    @media screen and (min-width: $breakpoint-small) {
+      display: inline-block;
+      font-size: 2.5rem;
+      font-weight: $primary-font-weight-light;
+      color: $secondary-color;
+      margin-left: .5rem;
+    }
   }
 
   & > nav > ul {
     list-style: none;
     display: flex;
+
+    @media screen and (max-width: $breakpoint-small) {
+      flex-direction: column;
+      line-height: 1.5;
+    }
+
+    @media screen and (max-width: $breakpoint-medium) {
+      & > li:first-of-type { display: none; }
+    }
 
     & > li {
       text-transform: uppercase;
@@ -63,6 +80,9 @@ body > header {
 }
 
 body > footer {
+  @media screen and (max-width: $breakpoint-small) {
+    text-align: center;
+  }
   border-top: 1px solid $secondary-color;
   color: $secondary-color;
   text-align: right;
@@ -74,14 +94,30 @@ body > footer {
 .gallery {
   display: grid;
   grid-gap: 2rem;
-  grid: auto-flow / repeat(auto-fill, 11rem);
+  grid: auto-flow / repeat(auto-fill, 8rem);
 
   & > .painting > img {
-    height: 11rem;
-    width: 11rem;
+    height: 8rem;
+    width: 8rem;
     box-shadow:
       0 0 0 5px whitesmoke,
       0 0 0 6px $secondary-color;
+  }
+
+  @media screen and (min-width: $breakpoint-small) {
+    grid: auto-flow / repeat(auto-fill, 10rem);
+    & > .painting > img {
+      height: 10rem;
+      width: 10rem;
+    }
+  }
+
+  @media screen and (min-width: $breakpoint-large) {
+    grid: auto-flow / repeat(auto-fill, 11rem);
+    & > .painting > img {
+      height: 11rem;
+      width: 11rem;
+    }
   }
 }
 
@@ -98,7 +134,9 @@ main {
   }
 
   p, ul {
-    margin: 1rem auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    max-width: 32rem;
   }
 
   ul {
@@ -107,16 +145,23 @@ main {
 }
 
 body.cv {
-  main {
-    h1, h2, h3, h4, h5, h6, p, ul, ol { margin: 0; padding: 0; }
-    ul, ol { list-style: outside square; }
-    display: grid;
-    grid-template: auto / 11rem 1fr;
-    grid-gap: 2rem 3rem;
+  main ul, main ol {
+    list-style: outside square;
+    margin-left: 1rem;
   }
 
-  h2 { place-self: start / start; grid-column: 1 / 3; }
-  h3 { text-align: right; }
+  @media screen and (min-width: $breakpoint-medium) {
+    main {
+      h1, h2, h3, h4, h5, h6, p, ul, ol { margin: 0; padding: 0; }
+      ul, ol { list-style: outside square; }
+      display: grid;
+      grid-template: auto / 11rem 1fr;
+      grid-gap: 2rem 3rem;
+    }
+
+    h2 { place-self: start / start; grid-column: 1 / 3; }
+    h3 { text-align: right; }
+  }
 }
 
 a:hover { color: $accent-color; }
@@ -147,16 +192,27 @@ a:hover { color: $accent-color; }
   figure {
     display: grid;
     grid-template-rows: 1fr auto;
-    justify-items: center;
+    justify-items: left;
     background-color: $primary-bg-color;
 
+    figcaption { margin: 0 0.5rem; }
     img { margin: 0.5rem; max-height: 75vh; }
-    p { margin: 0 auto 0.5rem }
+    p {
+      margin: 0 auto 0.5rem;
+      display: flex;
+      flex-direction: column;
+      max-width: 100%;
+    }
     span:first-of-type { font-weight: bold; }
-    span:not(:last-of-type):after {
-      font-weight: normal;
-      content: '  |  ';
-      color: $secondary-color;
+
+    @media screen and (min-width: $breakpoint-medium) {
+      justify-items: center;
+      p { display: block; text-align: center; }
+      span:not(:last-of-type):after {
+        font-weight: normal;
+        content: '  |  ';
+        color: $secondary-color;
+      }
     }
   }
 }
