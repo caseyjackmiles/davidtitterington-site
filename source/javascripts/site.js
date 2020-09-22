@@ -17,17 +17,49 @@ doWhenReady(function () {
 
 const activateLightbox = function (e) {
   const lightbox = document.getElementById('lightbox');
-  const template = e.currentTarget.querySelector('template');
 
   removeNodeContents(lightbox);
-  const templateClone = template.content.cloneNode(true);
-  lightbox.appendChild(templateClone);
+  const figure = createNewFigure(e);
+  lightbox.appendChild(figure);
 
   lightbox.classList.remove('hidden');
   document.body.classList.add('no-overflow');
   setTimeout(() => {
     addLightboxCloseListeners();
   }, 500);
+}
+
+const createNewFigure = function (e) {
+  // TODO: replace this function with mithril, react, or some other alternative.
+  const {
+    alt, title, srcset, sizes, src, date, dimensions, medium, sold
+  } = e.currentTarget.dataset;
+
+  const imgElement = document.createElement('img');
+  imgElement.setAttribute('alt', alt);
+  imgElement.setAttribute('title', title);
+  imgElement.setAttribute('srcset', srcset);
+  imgElement.setAttribute('sizes', sizes);
+  imgElement.setAttribute('src', src);
+
+  const pElement = document.createElement('p');
+  [title, date, dimensions, medium, sold]
+    .filter((attr) => attr.length)
+    .forEach((attr) => {
+      const span = document.createElement('span');
+      const text = document.createTextNode(attr);
+      span.appendChild(text);
+      pElement.appendChild(span);
+    });
+
+  const figCaptionElement = document.createElement('figcaption');
+  figCaptionElement.appendChild(pElement);
+
+  const figureElement = document.createElement('figure');
+  figureElement.appendChild(imgElement);
+  figureElement.appendChild(figCaptionElement);
+
+  return figureElement;
 }
 
 const addLightboxCloseListeners = function () {
