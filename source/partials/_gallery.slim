@@ -1,4 +1,8 @@
 - gallery = data.galleries.fetch(gallery_slug)
-.gallery class=[gallery_slug]
+.gallery class=[gallery_slug] data-controller='lightbox'
   - gallery.paintings.each do |painting|
     = partial 'partials/painting', locals: { painting_slug: painting }
+  #lightbox.hidden data-target='lightbox.lightbox' data-action='click->lightbox#dismissWithClick keydown@window->lightbox#dismissWithKey'
+    figure data-target='lightbox.figure'
+      img data-target='lightbox.img'
+      figcaption data-target='lightbox.caption'

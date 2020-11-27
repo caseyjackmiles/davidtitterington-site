@@ -1,5 +1,7 @@
 <% painting = data.paintings.fetch(painting_slug) %>
 <div
+  data-target='lightbox.painting'
+  data-action='click->lightbox#show'
   class="painting"
   data-alt="<%= painting.title %>"
   data-title="<%= painting.title %>"

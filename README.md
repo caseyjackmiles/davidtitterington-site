@@ -9,6 +9,7 @@ Future plan is to add Netlify-CMS for content management.
 
 - Ruby 2.6
 - Middleman
+- Stimulus
 - Slim & Haml templates
 - SCSS
 
