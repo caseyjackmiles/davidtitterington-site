@@ -10,6 +10,22 @@ function removeNodeContents(node) {
   }
 }
 
+function createImageNode(imgAttrs) {
+  const image = document.createElement('img');
+  setMultipleAttributes(image, imgAttrs);
+  return image;
+}
+
+function createCaptionNode(imageDetails) {
+  const caption = document.createElement('p');
+  imageDetails.filter(detail => detail.length).forEach(detail => {
+    const span = document.createElement('span');
+    span.appendChild(document.createTextNode(detail))
+    caption.appendChild(span);
+  });
+  return caption;
+}
+
 
 (() => {
   document.documentElement.classList.remove('no-js');
@@ -38,35 +54,34 @@ function removeNodeContents(node) {
       if (clickedOutsideFigure) this.dismiss();
     }
 
-    show(event) {
+    showLightbox(event) {
+      this.index = event.currentTarget.dataset.lightboxIndex;
+      this.displayImage();
+    }
+
+    displayImage() {
       const {
         alt, title, srcset, sizes, src, date, dimensions, medium, sold
-      } = event.currentTarget.dataset;
+      } = this.paintingTargets[this.index].dataset;
 
       const imgAttrs = { alt, title, srcset, sizes, src };
-      const caption = this.createCaption(title, date, dimensions, medium, sold);
+      const captionDetails = [title, date, dimensions, medium, sold];
 
-      this.createNewFigure(imgAttrs, caption);
+      const imageNode = createImageNode(imgAttrs);
+      const captionNode = createCaptionNode(captionDetails);
+
+      this.replaceImageAndCaption(imageNode, captionNode)
       this.lightboxTarget.classList.remove('hidden');
       this.data.delete('hidden');
     }
 
-    createNewFigure(imgAttrs, caption) {
-      setMultipleAttributes(this.imgTarget, imgAttrs);
-      removeNodeContents(this.captionTarget);
-      this.captionTarget.appendChild(caption);
-    }
+    replaceImageAndCaption(imageNode, captionNode) {
+      // Set target attrs so lightbox continues to work correctly.
+      imageNode.setAttribute('data-target', 'lightbox.img');
+      captionNode.setAttribute('data-target', 'lightbox.caption');
 
-    createCaption(title, date, dimensions, medium, sold) {
-      const caption = document.createElement('p');
-      [title, date, dimensions, medium, sold]
-        .filter(attr => attr.length)
-        .forEach(attr => {
-          const span = document.createElement('span');
-          span.appendChild(document.createTextNode(attr));
-          caption.appendChild(span);
-        });
-      return caption;
+      this.imgTarget.replaceWith(imageNode);
+      this.captionTarget.replaceWith(captionNode);
     }
   });
 })();
