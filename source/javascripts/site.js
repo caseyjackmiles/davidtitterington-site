@@ -10,13 +10,13 @@ function removeNodeContents(node) {
   }
 }
 
-function createImageNode(imgAttrs) {
+function createImageNode(imgAttrs = {}) {
   const image = document.createElement('img');
   setMultipleAttributes(image, imgAttrs);
   return image;
 }
 
-function createCaptionNode(imageDetails) {
+function createCaptionNode(imageDetails = []) {
   const caption = document.createElement('p');
   imageDetails.filter(detail => detail.length).forEach(detail => {
     const span = document.createElement('span');
@@ -37,15 +37,40 @@ function createCaptionNode(imageDetails) {
       return ['img', 'caption', 'painting', 'lightbox', 'figure'];
     }
 
+    connect() {
+      this.data.set('hidden', true);
+    }
+
     dismiss() {
       this.lightboxTarget.classList.add('hidden');
-      this.data.set('hidden', true)
+      this.data.set('hidden', true);
+
+      const emptyImage = createImageNode();
+      const emptyCaption = createCaptionNode();
+      this.replaceImageAndCaption(emptyImage, emptyCaption);
     }
 
     dismissWithKey(event) {
       if (this.data.get('hidden')) return;
       if (event.code !== 'Escape') return;
       this.dismiss();
+    }
+
+    nextImage(event) {
+      event.preventDefault();
+      if (this.index == this.paintingTargets.length - 1) return;
+
+      this.index++;
+      this.displayImage();
+      this.displayNextPrevious();
+    }
+
+    previousImage() {
+      if (this.index == 0) return;
+
+      this.index--;
+      this.displayImage();
+      this.displayNextPrevious();
     }
 
     dismissWithClick(event) {
@@ -57,6 +82,18 @@ function createCaptionNode(imageDetails) {
     showLightbox(event) {
       this.index = event.currentTarget.dataset.lightboxIndex;
       this.displayImage();
+      this.displayNextPrevious();
+    }
+
+    displayNextPrevious() {
+      // if (this.index != 0 && this.index != this.paintingTargets.length - 1) {
+      //   this.previousTarget.classList.remove('hidden');
+      //   this.nextTarget.classList.remove('hidden');
+      // }
+      // if (this.index == 0)
+      //   this.previousTarget.classList.add('hidden');
+      // if (this.index == this.paintingTargets.length - 1)
+      //   this.nextTarget.classList.add('hidden');
     }
 
     displayImage() {
@@ -64,9 +101,9 @@ function createCaptionNode(imageDetails) {
         alt, title, srcset, sizes, src, date, dimensions, medium, sold
       } = this.paintingTargets[this.index].dataset;
 
+      // Display image in modal
       const imgAttrs = { alt, title, srcset, sizes, src };
       const captionDetails = [title, date, dimensions, medium, sold];
-
       const imageNode = createImageNode(imgAttrs);
       const captionNode = createCaptionNode(captionDetails);
 

@@ -168,6 +168,11 @@ a:hover { color: $accent-color; }
 
 .no-overflow { overflow: hidden; }
 
+[data-target="lightbox.next"].hidden, [data-target="lightbox.previous"].hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
 #lightbox {
   background-color: transparentize($primary-color, .2);
   position: fixed;
