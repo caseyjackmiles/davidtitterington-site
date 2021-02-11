@@ -23,7 +23,7 @@ In order to build the project, ImageMagick must be installed.
 **source/**  
 Haml templates for the pages of the site. Template files get their content from data-files.
 
-**source/layouts**   
+**source/layouts**  
 **source/partials**  
 Slim template files for structural (non-content) parts of the site. There are currently two main types of page layouts, `default` and `gallery`.
 
@@ -42,6 +42,7 @@ These files are ignored by version control.
 ```
 bundle exec middleman
 ```
+
 Serves the code at http://localhost:4567. Refresh the page to see the effect of any code changes.
 
 ### Build
