@@ -47,8 +47,6 @@ export async function getStaticProps(context) {
 export async function getStaticPaths() {
   return {
     paths: [
-      { params: { slug: 'beneath-our-feet' } },
-      { params: { slug: 'progeny' } }
     ],
     fallback: false
   }

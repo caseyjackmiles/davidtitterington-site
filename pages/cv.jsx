@@ -1,12 +1,17 @@
 import SiteHeader from "../src/components/SiteHeader";
 import SiteFooter from "../src/components/SiteFooter";
+import Markdown from 'markdown-to-jsx';
+
+import pageData from '../data/pages/cv.yml';
 
 function CVPage() {
   return (
     <>
       <SiteHeader />
       <main>
-        <h1>CV</h1>
+        <Markdown>
+          {pageData.content}
+        </Markdown>
       </main>
       <SiteFooter />
     </>

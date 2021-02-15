@@ -17,7 +17,6 @@ export function Gallery({ paintings }) {
 
   return (
     <div className="gallery">
-      <h2>Gallery</h2>
       {images}
     </div>
   );
