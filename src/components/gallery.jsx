@@ -8,6 +8,7 @@ export function Gallery({ paintings }) {
       <Image
         src={`/images/${painting.image}`}
         alt={painting.title}
+        title={painting.title}
         key={index}
         width={175}
         height={175}

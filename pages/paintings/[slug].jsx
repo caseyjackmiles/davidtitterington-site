@@ -25,6 +25,7 @@ export default function Painting(props) {
         <Image
           src={`/images/${image}`}
           alt={title}
+          title={title}
           width={175}
           height={175}
         />
