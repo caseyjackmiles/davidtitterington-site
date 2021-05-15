@@ -8,7 +8,7 @@ const links = [
 ];
 
 const SiteHeader = () => (
-  <header>
+  <header className="container mx-auto">
     <h1>
       <Link href="/">
         <a>David Titterington</a>

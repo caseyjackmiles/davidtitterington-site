@@ -5,19 +5,21 @@ export function Gallery({ paintings }) {
 
   paintings.forEach((painting, index) => {
     images.push(
-      <Image
-        src={`/images/${painting.image}`}
-        alt={painting.title}
-        title={painting.title}
-        key={index}
-        width={175}
-        height={175}
-      />
+      <div class="relative m-auto w-60 h-60 border-8 border-white shadow">
+          <Image
+            src={`/images/${painting.image}`}
+            alt={painting.title}
+            title={painting.title}
+            key={index}
+            layout="fill"
+            objectFit="contain"
+          />
+      </div>
     );
   })
 
   return (
-    <div className="gallery">
+    <div class="gallery space-y-6" >
       {images}
     </div>
   );

@@ -1,6 +1,6 @@
 export default function () {
   return (
-    <footer>
+    <footer class="container mx-auto">
       <p>
         <small>
           All images and text &copy; David Titterington.
