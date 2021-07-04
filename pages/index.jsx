@@ -9,7 +9,7 @@ function IndexPage() {
   return (
     <>
       <SiteHeader />
-      <main class="container mx-auto bg-gray-200 p-2">
+      <main className="container mx-auto bg-gray-200 p-2">
         <Gallery {...IndexGallery} />
       </main>
       <SiteFooter />

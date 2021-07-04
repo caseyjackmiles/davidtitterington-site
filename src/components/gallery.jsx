@@ -5,7 +5,7 @@ export function Gallery({ paintings }) {
 
   paintings.forEach((painting, index) => {
     images.push(
-      <div class="relative m-auto w-60 h-60 border-8 border-white shadow">
+      <div className="relative m-auto w-60 h-60 border-8 border-white shadow">
           <Image
             src={`/images/${painting.image}`}
             alt={painting.title}
@@ -19,7 +19,7 @@ export function Gallery({ paintings }) {
   })
 
   return (
-    <div class="gallery space-y-6" >
+    <div className="gallery space-y-6" >
       {images}
     </div>
   );
