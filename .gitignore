@@ -6,6 +6,7 @@ build/
 
 # painting/gallery/content data files
 data/**/*.yml
+data/**/*.json
 
 # image files
 source/images/*

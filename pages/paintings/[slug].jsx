@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { paintingData } from '../../src/painting/allPaintings';
 import SiteHeader from '../../src/components/SiteHeader';
 import SiteFooter from '../../src/components/SiteFooter';
@@ -35,20 +36,21 @@ export default function Painting(props) {
   )
 }
 
-export async function getStaticProps(context) {
-
-  const slug = context.params.slug;
-  const painting = paintingData[slug];
-
+export async function getStaticPaths() {
+  const paths = Object.keys(paintingData).map(slug => (
+    { params: { slug } }
+  ))
   return {
-    props: painting
+    paths,
+    fallback: false
   }
 }
 
-export async function getStaticPaths() {
+export async function getStaticProps(context) {
+  const { slug } = context.params;
+  const painting = paintingData[slug];
+
   return {
-    paths: [
-    ],
-    fallback: false
+    props: { ...painting }
   }
 }

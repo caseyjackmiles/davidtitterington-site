@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Link from "next/link";
 import "tailwindcss/tailwind.css";
 import { BACKGROUND } from "../util";
@@ -44,19 +43,10 @@ const MainNavigation = () => (
   </nav>
 )
 
-// This instance of Head should only contain items necessary for all pages.
-// E.g., NOT `title` elements
-const HTMLHead = () => (
-  <Head>
-    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
-  </Head>
-)
-
 const HEADER_CLASSES = `p-2 border-b-2 border-gray-300 ${BACKGROUND}`
 
 const SiteHeader = () => (
   <>
-    <HTMLHead />
     <header className={HEADER_CLASSES}>
       <Title />
       <SubTitle />
